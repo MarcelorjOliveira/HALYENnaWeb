@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login HALYEN</title>
     </head>
     <body>
         <br>
@@ -18,6 +18,6 @@
            Login:  <input type ='text' name="login"/> <br/>
            Senha: <input type ="password" name ="password"/> <br/>
            <input type ="submit" value="Entrar"/>
-        </form>
+        </form><a href ="criaLoginForm" > Cria Login </a>
     </body>
 </html>
