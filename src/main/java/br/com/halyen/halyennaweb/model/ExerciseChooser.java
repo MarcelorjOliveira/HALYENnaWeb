@@ -11,53 +11,53 @@ import java.util.ArrayList;
  * @author marcelo
  */
 public class ExerciseChooser {
-    ArrayList<Exercise> exerciciosAFazer = new ArrayList<Exercise>();
-    ArrayList<Exercise> exerciciosFeitos = new ArrayList<Exercise>();
-    boolean fazerProximoExercicio;
+    ArrayList<Exercise> exercisesToDo = new ArrayList<Exercise>();
+    ArrayList<Exercise> exercisesDone = new ArrayList<Exercise>();
+    boolean canDoNextExercise;
     
     public ExerciseChooser()
     {
-        adicionarExercicios();
+        addExercise();
     }
     
-    public void adicionarExercicios() {
-        exerciciosAFazer.add(new FactorialExercise());
-        exerciciosAFazer.add(new FibonnaciExercise());
-        exerciciosAFazer.add(new SpotExercise());
-        exerciciosAFazer.add(new MultipleExercise());
-        exerciciosAFazer.add(new SumExercise());
-        exerciciosAFazer.add(new MultipleSumExercise());
-        exerciciosAFazer.add(new SummationExercise());
-        exerciciosAFazer.add(new MultiplicandExercise());
+    public void addExercise() {
+        exercisesToDo.add(new FactorialExercise());
+        exercisesToDo.add(new FibonnaciExercise());
+        exercisesToDo.add(new SpotExercise());
+        exercisesToDo.add(new MultipleExercise());
+        exercisesToDo.add(new SumExercise());
+        exercisesToDo.add(new MultipleSumExercise());
+        exercisesToDo.add(new SummationExercise());
+        exercisesToDo.add(new MultiplicandExercise());
     }
     
-    public Exercise escolherExercicio()
+    public Exercise chooseExercise()
     {
-        double random = Math.random() * exerciciosAFazer.size();
+        double random = Math.random() * exercisesToDo.size();
         
-        Exercise exercicio = exerciciosAFazer.get((int)random);
-        exerciciosAFazer.remove(exercicio);
-        exerciciosFeitos.add(exercicio);
+        Exercise exercise = exercisesToDo.get((int)random);
+        exercisesToDo.remove(exercise);
+        exercisesDone.add(exercise);
         
-        return exercicio;
+        return exercise;
     } 
     
     private double media() {
-        double notaTotal=0,media;
-        for(Exercise exercicio : exerciciosFeitos)
+        double totalMark=0,media;
+        for(Exercise exercise : exercisesDone)
         {
-            notaTotal += exercicio.notaExercicio();
+            totalMark += exercise.notaExercicio();
         }
         
-        media = notaTotal/exerciciosFeitos.size();
+        media = totalMark/exercisesDone.size();
         javax.swing.JOptionPane.showMessageDialog(null, "Média : " + media);
         return media;
     }
     
-    public boolean fazerProximoExercicio() {
-         if(exerciciosFeitos.size() >= 3)
+    public boolean canDoNextExercise() {
+         if(exercisesDone.size() >= 3)
             {
-            if(exerciciosFeitos.size() <= 7)
+            if(exercisesDone.size() <= 7)
             {
                 if(media() >= 8.0)
                 {

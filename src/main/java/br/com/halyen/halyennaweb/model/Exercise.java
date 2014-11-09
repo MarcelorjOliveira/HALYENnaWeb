@@ -52,7 +52,7 @@ public abstract class Exercise {
         metricsFile = new File(programaMetricas);
     }
 
-    public String exercise() {
+    public String title() {
         return exercise;
     }
 

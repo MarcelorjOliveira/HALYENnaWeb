@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class MainController {
+    
+    public static final String dirMain = "main/";
+    
     @RequestMapping("principal")
     public String actMain(){
-        return "main/main";
+        return dirMain+"main";
     }
     
 }

@@ -15,6 +15,6 @@
         <center><h1>Bem vindo as Avaliações</h1></center>
         <br>
         <br>
-        <a href="/exercicio">Exercícios básicos </a>
+        <a href="exerciciosbasicos">Exercícios básicos </a>
     </body>
 </html>
