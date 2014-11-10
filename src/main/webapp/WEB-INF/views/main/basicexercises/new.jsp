@@ -9,10 +9,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Exercícios básicos</title>
     </head>
     <body>
-        <form action="actBasicExercises" name="formBasicExercises">
+        <form action="roda" name="formBasicExercises" method="post">
             ${title}<br>
             <textarea style="resize:none" name="resolution" cols="70" rows="40" resize="none" ></textarea><br>
             <input type="submit" value="Enviar"/>

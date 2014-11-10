@@ -31,8 +31,8 @@ public abstract class Exercise {
     protected String nameMetricsFile;
     protected File metricsFile;
     protected File modelResponseFile = new File("respostaModelo.c");
-    protected boolean hasCompileErrors = false;
-    protected boolean endOfAttempts = false;
+    public boolean hasCompileErrors = false;
+    public boolean endOfAttempts = false;
     protected int countAttempts = 1;
     protected double markMetricsStudent, markMetricsModel;
     protected double testMark;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.halyen.halyennaweb.controller.MainController;
 import br.com.halyen.halyennaweb.model.Exercise;
 import br.com.halyen.halyennaweb.model.ExerciseChooser;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 /**
@@ -35,6 +36,39 @@ public class BasicExercisesController {
     public String newExercise(Model model){
         exercise = chooser.chooseExercise();
         model.addAttribute("title", exercise.title() );
-        return dirBasicExercises+"basicexercises";
+        return dirBasicExercises+"new";
+    }
+    
+    @RequestMapping("exerciciosbasicos/roda")
+    public String runExercise(HttpServletRequest request){
+        exercise.buildGrading(request.getParameter("resolution"));
+        if (exercise.hasCompileErrors != true) {
+            //exercicio.salvarBancoDeDados(codigoUsuario, conexao);
+            if (chooser.canDoNextExercise() == true) {
+                //botaoProximoExercicio.setVisible(true);
+                //botaoSalvar.setVisible(false);
+                javax.swing.JOptionPane.showMessageDialog(null, "Teste de próximo exercício");
+                return "redirect:exerciciosbasicos/novo";
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(null, "Parabéns. Você passou no teste!");
+                return "redirect:principal";
+            }
+        } else {
+            //exercicio.salvarBancoErroDeCompilacao(codigoUsuario, conexao);
+            if (exercise.endOfAttempts == true) {
+                if (chooser.canDoNextExercise() == true) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Estouro de "
+                            + "quantidade de tentativas atingido. "
+                            + "Por favor, fazer o próximo exercício");
+                    return "redirect:exerciciosbasicos/novo";
+                    //botaoProximoExercicio.setVisible(true);
+                    //botaoSalvar.setVisible(false);
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Você foi reprovado no teste");
+                    return "redirect:principal";
+                }
+            }
+        }
+        return "redirect:exerciciosbasicos/novo";
     }
 }
