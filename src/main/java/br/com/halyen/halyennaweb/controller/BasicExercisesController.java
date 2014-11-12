@@ -26,32 +26,34 @@ public class BasicExercisesController {
     private ExerciseChooser chooser;
     private Exercise exercise;
     
-    @RequestMapping("exerciciosbasicos")
+    @RequestMapping(Routes.exerciciosbasicos)
     public String exercise() {
         chooser = new ExerciseChooser();
-        return "redirect:exerciciosbasicos/novo";
+        return "redirect:"+Routes.exerciciosbasicosNovo;
    }
     
-    @RequestMapping("exerciciosbasicos/novo")
+    @RequestMapping(Routes.exerciciosbasicosNovo)
     public String newExercise(Model model){
         exercise = chooser.chooseExercise();
         model.addAttribute("title", exercise.title() );
         return dirBasicExercises+"new";
     }
     
-    @RequestMapping("exerciciosbasicos/roda")
-    public String runExercise(HttpServletRequest request){
+    @RequestMapping(Routes.exerciciosbasicosRoda)
+    public String runExercise(HttpServletRequest request, Model model){
         exercise.buildGrading(request.getParameter("resolution"));
+        javax.swing.JOptionPane.showMessageDialog(null, "Problema de compilação : " + exercise.hasCompileErrors);
         if (exercise.hasCompileErrors != true) {
             //exercicio.salvarBancoDeDados(codigoUsuario, conexao);
+            javax.swing.JOptionPane.showMessageDialog(null, "Fazer próximo exercicio : " + chooser.canDoNextExercise());
             if (chooser.canDoNextExercise() == true) {
                 //botaoProximoExercicio.setVisible(true);
                 //botaoSalvar.setVisible(false);
                 javax.swing.JOptionPane.showMessageDialog(null, "Teste de próximo exercício");
-                return "redirect:exerciciosbasicos/novo";
+                return "redirect:"+Routes.exerciciosbasicosNovo;
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Parabéns. Você passou no teste!");
-                return "redirect:principal";
+                return "redirect:"+Routes.principal;
             }
         } else {
             //exercicio.salvarBancoErroDeCompilacao(codigoUsuario, conexao);
@@ -60,15 +62,19 @@ public class BasicExercisesController {
                     javax.swing.JOptionPane.showMessageDialog(null, "Estouro de "
                             + "quantidade de tentativas atingido. "
                             + "Por favor, fazer o próximo exercício");
-                    return "redirect:exerciciosbasicos/novo";
+                    return "redirect:"+Routes.exerciciosbasicosNovo;
                     //botaoProximoExercicio.setVisible(true);
                     //botaoSalvar.setVisible(false);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(null, "Você foi reprovado no teste");
-                    return "redirect:principal";
+                    return "redirect:"+Routes.principal;
                 }
             }
+            else {
+                //model.addAttribute("resolution", request.getParameter("resolution"));
+                return "redirect:"+Routes.exerciciosbasicosNovo;
+            }
         }
-        return "redirect:exerciciosbasicos/novo";
+        
     }
 }
