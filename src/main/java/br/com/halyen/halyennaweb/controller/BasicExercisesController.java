@@ -24,7 +24,7 @@ public class BasicExercisesController {
    
     public static final String dirBasicExercises = MainController.dirMain+"basicexercises/";
     
-    public String resolution;
+    private String resolution;
     
     private ExerciseChooser chooser;
     private Exercise exercise;
@@ -55,7 +55,6 @@ public class BasicExercisesController {
         exercise.buildGrading(resolution);
         if (exercise.hasCompileErrors != true) {
             //exercicio.salvarBancoDeDados(codigoUsuario, conexao);
-            javax.swing.JOptionPane.showMessageDialog(null, "Fazer próximo exercicio : " + chooser.canDoNextExercise());
             if (chooser.canDoNextExercise() == true) {
                 return "redirect:"+Routes.exerciciosbasicosNovo;
             } else {
