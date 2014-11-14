@@ -12,6 +12,7 @@ import br.com.halyen.halyennaweb.model.Exercise;
 import br.com.halyen.halyennaweb.model.ExerciseChooser;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -22,6 +23,8 @@ import org.springframework.ui.Model;
 public class BasicExercisesController {
    
     public static final String dirBasicExercises = MainController.dirMain+"basicexercises/";
+    
+    public String resolution;
     
     private ExerciseChooser chooser;
     private Exercise exercise;
@@ -39,17 +42,21 @@ public class BasicExercisesController {
         return dirBasicExercises+"new";
     }
     
+    @RequestMapping(Routes.exerciciosbasicosAtualiza)
+    public String updateExercise(HttpServletRequest request, Model model){
+        model.addAttribute("title", exercise.title() );
+        model.addAttribute("resolutionParam", resolution);
+        return dirBasicExercises+"new";
+    }
+    
     @RequestMapping(Routes.exerciciosbasicosRoda)
     public String runExercise(HttpServletRequest request, Model model){
-        exercise.buildGrading(request.getParameter("resolution"));
-        javax.swing.JOptionPane.showMessageDialog(null, "Problema de compilação : " + exercise.hasCompileErrors);
+        resolution = request.getParameter("resolution"); 
+        exercise.buildGrading(resolution);
         if (exercise.hasCompileErrors != true) {
             //exercicio.salvarBancoDeDados(codigoUsuario, conexao);
             javax.swing.JOptionPane.showMessageDialog(null, "Fazer próximo exercicio : " + chooser.canDoNextExercise());
             if (chooser.canDoNextExercise() == true) {
-                //botaoProximoExercicio.setVisible(true);
-                //botaoSalvar.setVisible(false);
-                javax.swing.JOptionPane.showMessageDialog(null, "Teste de próximo exercício");
                 return "redirect:"+Routes.exerciciosbasicosNovo;
             } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Parabéns. Você passou no teste!");
@@ -63,16 +70,13 @@ public class BasicExercisesController {
                             + "quantidade de tentativas atingido. "
                             + "Por favor, fazer o próximo exercício");
                     return "redirect:"+Routes.exerciciosbasicosNovo;
-                    //botaoProximoExercicio.setVisible(true);
-                    //botaoSalvar.setVisible(false);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(null, "Você foi reprovado no teste");
                     return "redirect:"+Routes.principal;
                 }
             }
             else {
-                //model.addAttribute("resolution", request.getParameter("resolution"));
-                return "redirect:"+Routes.exerciciosbasicosNovo;
+                return "redirect:"+Routes.exerciciosbasicosAtualiza;
             }
         }
         

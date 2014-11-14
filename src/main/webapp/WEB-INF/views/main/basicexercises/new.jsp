@@ -14,7 +14,7 @@
     <body>
         <form action="roda" name="formBasicExercises" method="post">
             ${title}<br>
-            <textarea style="resize:none" name="resolution" cols="70" rows="40" resize="none" >${resolution}</textarea><br>
+            <textarea style="resize:none" name="resolution" cols="70" rows="40" resize="none" >${resolutionParam}</textarea><br>
             <input type="submit" value="Enviar"/>
         </form>
     </body>
